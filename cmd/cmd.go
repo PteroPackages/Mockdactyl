@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -10,6 +11,13 @@ import (
 )
 
 func Execute() {
+	users, err := os.ReadFile("./store/users.json")
+	if err != nil {
+		panic(err)
+	}
+
+	application.Load(users)
+
 	router := chi.NewRouter()
 	router.Use(middleware.Logger)
 

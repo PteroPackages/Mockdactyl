@@ -1,0 +1,10 @@
+[
+    {
+        "id": 1,
+        "username": "sudo",
+        "email": "sudo@example.com",
+        "first_name": "sudo",
+        "last_name": "sudo",
+        "root_admin": true
+    }
+]

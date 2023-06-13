@@ -1,6 +1,7 @@
 package application
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -17,18 +18,21 @@ func SetRoutes(router chi.Router) {
 }
 
 type user struct {
-	ID        int
-	Username  string
-	Email     string
-	FirstName string
-	LastName  string
-	RootAdmin bool
+	ID        int    `json:"id"`
+	Username  string `json:"username"`
+	Email     string `json:"email"`
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+	RootAdmin bool   `json:"root_admin"`
+}
+
+var store []user
+
+func Load(buf []byte) error {
+	return json.Unmarshal(buf, &store)
 }
 
 func getUsers(w http.ResponseWriter, r *http.Request) {
-	out, _ := fractal.SerializeList("user", []user{
-		{ID: 1, Username: "sudo", Email: "example@example.com", FirstName: "sudo", LastName: "sudo", RootAdmin: false},
-	})
-
+	out, _ := fractal.SerializeList("user", store)
 	w.Write(out)
 }

@@ -22,6 +22,8 @@ func Unauthenticated(w http.ResponseWriter) {
 		StatusCode: 401,
 	}
 	out, _ := json.Marshal(err)
+
+	w.WriteHeader(401)
 	w.Write(out)
 }
 
@@ -31,6 +33,8 @@ func Forbidden(w http.ResponseWriter) {
 		StatusCode: 403,
 	}
 	out, _ := json.Marshal(err)
+
+	w.WriteHeader(403)
 	w.Write(out)
 }
 
@@ -40,5 +44,7 @@ func NotFound(w http.ResponseWriter) {
 		StatusCode: 404,
 	}
 	out, _ := json.Marshal(err)
+
+	w.WriteHeader(404)
 	w.Write(out)
 }

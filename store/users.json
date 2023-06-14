@@ -1,10 +1,30 @@
 [
     {
         "id": 1,
+        "external_id": null,
+        "uuid": "21e57c16-1d22-4329-b3ce-79e455c3c0b9",
         "username": "sudo",
         "email": "sudo@example.com",
         "first_name": "sudo",
         "last_name": "sudo",
-        "root_admin": true
+        "language": "en",
+        "root_admin": true,
+        "2fa": true,
+        "created_at": "2023-06-14T00:10:00.627Z",
+        "updated_at": null
+    },
+    {
+        "id": 2,
+        "external_id": "asdf",
+        "uuid": "6d7405a3-8bff-418a-9739-5317739b00e9",
+        "username": "asdf",
+        "email": "asdf@example.com",
+        "first_name": "asdf",
+        "last_name": "asdf",
+        "language": "en",
+        "root_admin": false,
+        "2fa": false,
+        "created_at": "2023-06-14T00:10:10.627Z",
+        "updated_at": null
     }
 ]

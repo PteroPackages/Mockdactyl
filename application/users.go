@@ -21,12 +21,18 @@ func SetRoutes(router chi.Router) {
 }
 
 type user struct {
-	ID        int    `json:"id"`
-	Username  string `json:"username"`
-	Email     string `json:"email"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
-	RootAdmin bool   `json:"root_admin"`
+	ID         int    `json:"id"`
+	ExternalID string `json:"external_id,omitempty"`
+	UUID       string `json:"uuid"`
+	Username   string `json:"username"`
+	Email      string `json:"email"`
+	FirstName  string `json:"first_name"`
+	LastName   string `json:"last_name"`
+	Language   string `json:"language"`
+	RootAdmin  bool   `json:"root_admin"`
+	TwoFactor  bool   `json:"2fa"`
+	CreatedAt  string `json:"created_at"`
+	UpdatedAt  string `json:"updated_at,omitempty"`
 }
 
 var store []user

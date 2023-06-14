@@ -17,6 +17,7 @@ func SetRoutes(router chi.Router) {
 	router.Route("/users", func(r chi.Router) {
 		r.Get("/", getUsers)
 		r.Get("/{id}", getUser)
+		r.Get("/external/{id}", getExternalUser)
 	})
 }
 
@@ -51,6 +52,20 @@ func getUser(w http.ResponseWriter, r *http.Request) {
 
 	for _, u := range store {
 		if u.ID == id {
+			out, _ := fractal.SerializeItem("user", u)
+			w.Write(out)
+			return
+		}
+	}
+
+	exceptions.NotFound(w)
+}
+
+func getExternalUser(w http.ResponseWriter, r *http.Request) {
+	id := chi.URLParam(r, "id")
+
+	for _, u := range store {
+		if u.ExternalID == id {
 			out, _ := fractal.SerializeItem("user", u)
 			w.Write(out)
 			return

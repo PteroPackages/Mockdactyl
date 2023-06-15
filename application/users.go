@@ -52,7 +52,7 @@ func getUser(w http.ResponseWriter, r *http.Request) {
 
 	for _, u := range store {
 		if u.ID == id {
-			out, _ := fractal.SerializeItem("user", u)
+			out, _ := fractal.SerializeItem("user", u, nil)
 			w.Write(out)
 			return
 		}
@@ -66,7 +66,7 @@ func getExternalUser(w http.ResponseWriter, r *http.Request) {
 
 	for _, u := range store {
 		if u.ExternalID == id {
-			out, _ := fractal.SerializeItem("user", u)
+			out, _ := fractal.SerializeItem("user", u, nil)
 			w.Write(out)
 			return
 		}

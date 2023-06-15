@@ -7,11 +7,13 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/pteropackages/mockdactyl/auth"
 	"github.com/pteropackages/mockdactyl/exceptions"
 	"github.com/pteropackages/mockdactyl/fractal"
 )
 
 func SetRoutes(router chi.Router) {
+	router.Use(auth.VerifyAPIKey())
 	router.Use(middleware.AllowContentType("application/json"))
 
 	router.Route("/users", func(r chi.Router) {

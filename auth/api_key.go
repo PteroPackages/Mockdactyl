@@ -3,6 +3,7 @@ package auth
 import (
 	"math/rand"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/pteropackages/mockdactyl/exceptions"
@@ -43,7 +44,7 @@ func CreateAPIKey(desc string) APIKey {
 func VerifyAPIKey(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		token := r.Header.Get("Authorization")
-		if token == "" || token[0:12] != "Bearer ptlc_" {
+		if !strings.HasSuffix(token, "Bearer ptlc_") {
 			exceptions.Unauthenticated(w)
 			return
 		}

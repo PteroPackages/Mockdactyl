@@ -40,26 +40,24 @@ func CreateAPIKey(desc string) APIKey {
 	return key
 }
 
-func VerifyAPIKey() func(next http.Handler) http.Handler {
-	return func(next http.Handler) http.Handler {
-		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			token := r.Header.Get("Authorization")
-			if token == "" || token[0:12] != "Bearer ptlc_" {
-				exceptions.Unauthenticated(w)
+func VerifyAPIKey(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		token := r.Header.Get("Authorization")
+		if token == "" || token[0:12] != "Bearer ptlc_" {
+			exceptions.Unauthenticated(w)
+			return
+		}
+		token = token[7:]
+
+		for _, k := range keyStore {
+			if k.Token == token {
+				next.ServeHTTP(w, r)
 				return
 			}
-			token = token[7:]
+		}
 
-			for _, k := range keyStore {
-				if k.Token == token {
-					next.ServeHTTP(w, r)
-					return
-				}
-			}
-
-			exceptions.Unauthenticated(w)
-		})
-	}
+		exceptions.Unauthenticated(w)
+	})
 }
 
 func generateToken(length int) string {

@@ -13,7 +13,7 @@ import (
 )
 
 func SetRoutes(router chi.Router) {
-	router.Use(auth.VerifyAPIKey())
+	router.Use(auth.VerifyAPIKey)
 	router.Use(middleware.AllowContentType("application/json"))
 
 	router.Route("/users", func(r chi.Router) {

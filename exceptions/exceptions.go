@@ -16,6 +16,17 @@ type exception struct {
 	Status int    `json:"status"`
 }
 
+func BadRequest(w http.ResponseWriter, m string) {
+	err := errGroup{
+		Errors:     []exception{{"BadRequestHttpException", m, 400}},
+		StatusCode: 400,
+	}
+	out, _ := json.Marshal(err)
+
+	w.WriteHeader(400)
+	w.Write(out)
+}
+
 func Unauthenticated(w http.ResponseWriter) {
 	err := errGroup{
 		Errors:     []exception{{"AuthenicationException", "Unauthenicated.", 401}},

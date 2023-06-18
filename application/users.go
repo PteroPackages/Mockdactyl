@@ -2,6 +2,8 @@ package application
 
 import (
 	"encoding/json"
+	"fmt"
+	"io"
 	"net/http"
 	"strconv"
 
@@ -20,6 +22,7 @@ func SetRoutes(router chi.Router) {
 		r.Get("/", getUsers)
 		r.Get("/{id}", getUser)
 		r.Get("/external/{id}", getExternalUser)
+		r.Post("/", postUser)
 	})
 }
 
@@ -75,4 +78,28 @@ func getExternalUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	exceptions.NotFound(w)
+}
+
+func postUser(w http.ResponseWriter, r *http.Request) {
+	var data struct {
+		Username  string `json:"username"`
+		Email     string `json:"email"`
+		FirstName string `json:"first_name"`
+		LastName  string `json:"last_name"`
+		Language  string `json:"language,omitempty"`
+		RootAdmin bool   `json:"root_admin"`
+	}
+
+	defer r.Body.Close()
+	buf, err := io.ReadAll(r.Body)
+	if err != nil {
+		exceptions.BadRequest(w, err.Error())
+		return
+	}
+
+	if err := json.Unmarshal(buf, &data); err != nil {
+		msg := fmt.Sprintf("The JSON data passed in the request appears to be malformed: %s", err)
+		exceptions.BadRequest(w, msg)
+		return
+	}
 }

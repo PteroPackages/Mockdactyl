@@ -5,20 +5,20 @@ import (
 	"net/http"
 )
 
-type errGroup struct {
-	Errors     []exception `json:"errors"`
+type ErrGroup struct {
+	Errors     []Exception `json:"errors"`
 	StatusCode int         `json:"status_code"`
 }
 
-type exception struct {
+type Exception struct {
 	Code   string `json:"code"`
 	Detail string `json:"detail"`
 	Status int    `json:"status"`
 }
 
 func BadRequest(w http.ResponseWriter, m string) {
-	err := errGroup{
-		Errors:     []exception{{"BadRequestHttpException", m, 400}},
+	err := ErrGroup{
+		Errors:     []Exception{{"BadRequestHttpException", m, 400}},
 		StatusCode: 400,
 	}
 	out, _ := json.Marshal(err)
@@ -28,8 +28,8 @@ func BadRequest(w http.ResponseWriter, m string) {
 }
 
 func Unauthenticated(w http.ResponseWriter) {
-	err := errGroup{
-		Errors:     []exception{{"AuthenicationException", "Unauthenicated.", 401}},
+	err := ErrGroup{
+		Errors:     []Exception{{"AuthenicationException", "Unauthenicated.", 401}},
 		StatusCode: 401,
 	}
 	out, _ := json.Marshal(err)
@@ -39,8 +39,8 @@ func Unauthenticated(w http.ResponseWriter) {
 }
 
 func Forbidden(w http.ResponseWriter) {
-	err := errGroup{
-		Errors:     []exception{{"AccessDeniedHttpException", "This action is unauthorized.", 403}},
+	err := ErrGroup{
+		Errors:     []Exception{{"AccessDeniedHttpException", "This action is unauthorized.", 403}},
 		StatusCode: 403,
 	}
 	out, _ := json.Marshal(err)
@@ -50,8 +50,8 @@ func Forbidden(w http.ResponseWriter) {
 }
 
 func NotFound(w http.ResponseWriter) {
-	err := errGroup{
-		Errors:     []exception{{"AuthenicationException", "The requested resource could not be found on the server.", 404}},
+	err := ErrGroup{
+		Errors:     []Exception{{"AuthenicationException", "The requested resource could not be found on the server.", 404}},
 		StatusCode: 404,
 	}
 	out, _ := json.Marshal(err)

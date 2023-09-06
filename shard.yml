@@ -1,0 +1,13 @@
+name: mockdactyl
+authors:
+  - Devonte W <https://github.com/devnote-dev>
+
+version: 0.1.0
+crystal: ~> 1.9.2
+license: MIT
+repository: https://github.com/PteroPackages/Mockdactyl
+
+targets:
+  mockd:
+    main: src/main.cr
+    flags: --stats

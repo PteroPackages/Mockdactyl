@@ -18,7 +18,7 @@ module Mockdactyl
     @[JSON::Field(emit_null: true)]
     property updated_at : String?
 
-    def initialize(@id, @uuid, @username, @email, @first_name, @last_name, @language, @root_admin)
+    def initialize(@id, @external_id, @uuid, @username, @email, @first_name, @last_name, @language, @root_admin)
       @two_factor = false
       @created_at = Time.utc.to_s
     end

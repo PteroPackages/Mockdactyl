@@ -6,6 +6,7 @@ module Mockdactyl::Store
     (1..10).each do |id|
       hash[id] = User.new(
         id,
+        random.rand(10) <= 2 ? random.hex(8) : nil,
         UUID.random.to_s,
         Faker::Internet.user_name,
         Faker::Internet.free_email,

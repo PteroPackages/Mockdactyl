@@ -1,0 +1,3 @@
+require "./mockdactyl"
+
+ATH.run

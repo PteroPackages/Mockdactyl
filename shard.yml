@@ -7,7 +7,15 @@ crystal: ~> 1.9.2
 license: MIT
 repository: https://github.com/PteroPackages/Mockdactyl
 
+dependencies:
+  athena:
+    github: athena-framework/framework
+    version: ~> 0.18.0
+
+  faker:
+    github: askn/faker
+
 targets:
   mockd:
     main: src/main.cr
-    flags: --stats
+    flags: --progress

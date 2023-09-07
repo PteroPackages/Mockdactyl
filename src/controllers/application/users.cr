@@ -13,5 +13,13 @@ module Mockdactyl::Application
 
       FractalItem(User).new(user).to_json
     end
+
+    @[ARTA::Get("/api/application/users/external/{id}")]
+    def external(id : String) : String
+      user = Store.users.values.find { |u| u.external_id == id }
+      raise ATH::Exceptions::NotFound.new "the requested user was not found" unless user
+
+      FractalItem(User).new(user).to_json
+    end
   end
 end

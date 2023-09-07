@@ -4,6 +4,7 @@ require "json"
 require "uuid"
 
 require "./controllers/application/*"
+require "./middleware/*"
 require "./models/*"
 require "./store"
 

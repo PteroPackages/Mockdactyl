@@ -18,11 +18,13 @@ module Mockdactyl
       "Hello World"
     end
 
-    post "/keygen" do
+    @[ARTA::Post("/keygen")]
+    def keygen : Mockdactyl::FractalItem(Mockdactyl::ApiKey)
       key = ApiKey.new @@random.hex(32), "auto-generated api-key"
       Store.api_keys[key.identifier] = key
+      meta = {"secret_token" => JSON::Any.new(key.token)}
 
-      FractalItem(ApiKey).new(key).to_json
+      FractalItem(ApiKey).new(key, JSON::Any.new(meta))
     end
   end
 end

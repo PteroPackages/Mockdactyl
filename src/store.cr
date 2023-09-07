@@ -18,4 +18,6 @@ module Mockdactyl::Store
 
     hash
   end
+
+  class_getter api_keys = {} of String => ApiKey
 end

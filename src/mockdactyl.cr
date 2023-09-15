@@ -3,6 +3,7 @@ require "faker"
 require "json"
 require "uuid"
 
+require "./commands/*"
 require "./controllers/application/*"
 require "./middleware/*"
 require "./models/*"

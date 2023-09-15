@@ -1,3 +1,3 @@
 require "./mockdactyl"
 
-ATH.run
+ADI.container.athena_console_application.run

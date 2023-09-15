@@ -36,21 +36,21 @@ module Mockdactyl
     include AVD::Validatable
     include JSON::Serializable
 
-    @[Assert::Range(1...59)]
+    @[Assert::Size(1...59)]
     getter external_id : String?
     @[Assert::NotBlank]
-    @[Assert::Range(1...59)]
+    @[Assert::Size(1...59)]
     getter username : String
     @[Assert::Email]
     @[Assert::NotBlank]
     getter email : String
     @[Assert::NotBlank]
-    @[Assert::Range(1...59)]
+    @[Assert::Size(1...59)]
     getter first_name : String
     @[Assert::NotBlank]
-    @[Assert::Range(1...59)]
+    @[Assert::Size(1...59)]
     getter last_name : String
-    @[Assert::Range(0...4)]
+    @[Assert::Size(0...4)]
     getter language : String = "en"
     getter root_admin : Bool = false
   end

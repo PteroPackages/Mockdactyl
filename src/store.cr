@@ -3,7 +3,7 @@ module Mockdactyl::Store
     random = Random.new
 
     (1..10).map do |id|
-      arr << User.new(
+      User.new(
         id,
         random.rand(10) <= 2 ? random.hex(8) : nil,
         UUID.random.to_s,

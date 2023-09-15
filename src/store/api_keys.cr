@@ -1,11 +1,9 @@
 module Mockdactyl::Store
   class APIKeys
-    @inc : Int32
     @data : Array(APIKey)
     @random : Random
 
     def initialize
-      @inc = 1
       @data = [] of APIKey
       @random = Random.new
     end

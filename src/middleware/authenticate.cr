@@ -5,28 +5,24 @@ module Mockdactyl
 
     @[AEDA::AsEventListener]
     def authenticate(event : Athena::Framework::Events::Request)
-      return if event.request.path.in?("/", "/keygen")
+      return unless event.request.path.starts_with? "/api"
 
       headers = event.request.headers
-      unless headers.has_key? "Authorization"
-        raise ATH::Exceptions::Unauthorized.new "you are not authorised to access this resource", "asdf"
-      end
+      fail_unauthorized! unless headers.has_key? "Authorization"
 
       auth = headers["Authorization"]
-      unless auth.starts_with? "Bearer "
-        raise ATH::Exceptions::Unauthorized.new "you are not authorised to access this resource", "asdf"
-      end
+      fail_unauthorized! unless auth.starts_with? "Bearer "
 
       _, token = auth.split ' '
-      unless token.starts_with? "ptlc_"
-        raise ATH::Exceptions::Unauthorized.new "you are not authorised to access this resource", "asdf"
-      end
+      fail_unauthorized! unless token.starts_with? "ptlc_"
 
       token = token[5..]
       key = Store.api_keys.values.find { |k| k.token == token }
-      return unless key
+      fail_unauthorized! unless key
+    end
 
-      raise ATH::Exceptions::Unauthorized.new "you are not authorised to access this resource", "asdf"
+    private def fail_unauthorized! : NoReturn
+      raise ATH::Exceptions::Unauthorized.new "you are not authorised to access this resource", "Basic"
     end
   end
 end

@@ -6,7 +6,7 @@ require "uuid"
 require "./controllers/application/*"
 require "./middleware/*"
 require "./models/*"
-require "./store"
+require "./store/*"
 
 module Mockdactyl
   VERSION = "0.1.0"
@@ -20,10 +20,9 @@ module Mockdactyl
 
     @[ARTA::Post("/keygen")]
     def keygen : Mockdactyl::FractalItem(Mockdactyl::APIKey)
-      key = APIKey.new @@random.hex(32), "auto-generated api-key"
-      Store.api_keys << key
+      key = Store.api_keys.create "auto-generated api key", nil
 
-      FractalItem(APIKey).new(key, {"secret_token" => JSON::Any.new(key.token)})
+      FractalItem.new(key, {"secret_token" => JSON::Any.new(key.token)})
     end
   end
 end

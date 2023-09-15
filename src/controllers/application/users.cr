@@ -3,23 +3,23 @@ module Mockdactyl::Application
   class Users < ATH::Controller
     @[ARTA::Get("")]
     def list : Mockdactyl::FractalList(Mockdactyl::User)
-      data = Store.users.map { |u| FractalItem(User).new u }
+      data = Store.users.list.map { |u| FractalItem.new u }
 
-      FractalList(User).new data
+      FractalList.new data
     end
 
     @[ARTA::Get("{id}")]
     def index(id : Int32) : Mockdactyl::FractalItem(Mockdactyl::User)
-      user = Store.users.find { |u| u.id == id } || fail_not_found!
+      user = Store.users.index(id) || fail_not_found!
 
-      FractalItem(User).new user
+      FractalItem.new user
     end
 
     @[ARTA::Get("external/{id}")]
     def external(id : String) : Mockdactyl::FractalItem(Mockdactyl::User)
-      user = Store.users.find { |u| u.external_id == id } || fail_not_found!
+      user = Store.users.index(id) || fail_not_found!
 
-      FractalItem(User).new user
+      FractalItem.new user
     end
 
     @[ARTA::Post("")]
@@ -27,21 +27,9 @@ module Mockdactyl::Application
       @[ATHR::RequestBody::Extract]
       data : Mockdactyl::UserCreate
     ) : Mockdactyl::FractalItem(Mockdactyl::User)
-      user = User.new(
-        Store.users.size,
-        data.external_id,
-        UUID.random.to_s,
-        data.username,
-        data.email,
-        data.first_name,
-        data.last_name,
-        data.language,
-        data.root_admin
-      )
+      user = Store.users.create data
 
-      Store.users << user
-
-      FractalItem(User).new user
+      FractalItem.new user
     end
 
     private def fail_not_found! : NoReturn

@@ -17,8 +17,7 @@ module Mockdactyl
       fail_unauthorized! unless token.starts_with? "ptlc_"
 
       token = token[5..]
-      key = Store.api_keys.find { |k| k.token == token }
-      fail_unauthorized! unless key
+      Store.api_keys.index(token) || fail_unauthorized!
     end
 
     private def fail_unauthorized! : NoReturn

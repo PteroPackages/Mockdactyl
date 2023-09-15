@@ -11,7 +11,7 @@ module Mockdactyl
     @[JSON::Field(emit_null: true)]
     @last_used_at : String?
 
-    def initialize(@token, @description = nil, @allowed_ips = %w[])
+    def initialize(@token, @description, @allowed_ips)
       @identifier = token[0...8]
       @created_at = Time.utc.to_s
     end

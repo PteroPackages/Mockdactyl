@@ -12,8 +12,6 @@ module Mockdactyl
   VERSION = "0.1.0"
 
   class App < ATH::Controller
-    @@random = Random.new
-
     get "/" do
       "Hello World"
     end

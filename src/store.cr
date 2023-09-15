@@ -1,10 +1,9 @@
 module Mockdactyl::Store
-  class_getter users : Hash(Int32, User) do
-    hash = {} of Int32 => User
+  class_getter users : Array(User) do
     random = Random.new
 
-    (1..10).each do |id|
-      hash[id] = User.new(
+    (1..10).map do |id|
+      arr << User.new(
         id,
         random.rand(10) <= 2 ? random.hex(8) : nil,
         UUID.random.to_s,
@@ -16,9 +15,7 @@ module Mockdactyl::Store
         random.next_bool
       )
     end
-
-    hash
   end
 
-  class_getter api_keys = {} of String => ApiKey
+  class_getter api_keys = [] of APIKey
 end

@@ -3,22 +3,21 @@ module Mockdactyl::Application
   class Users < ATH::Controller
     @[ARTA::Get("")]
     def list : Mockdactyl::FractalList(Mockdactyl::User)
-      data = Store.users.values.map { |u| FractalItem(User).new u }
+      data = Store.users.map { |u| FractalItem(User).new u }
 
       FractalList(User).new data
     end
 
     @[ARTA::Get("{id}")]
     def index(id : Int32) : Mockdactyl::FractalItem(Mockdactyl::User)
-      user = Store.users[id]? || fail_not_found!
+      user = Store.users.find { |u| u.id == id } || fail_not_found!
 
       FractalItem(User).new user
     end
 
     @[ARTA::Get("external/{id}")]
     def external(id : String) : Mockdactyl::FractalItem(Mockdactyl::User)
-      user = Store.users.values.find { |u| u.external_id == id }
-      fail_not_found! unless user
+      user = Store.users.find { |u| u.external_id == id } || fail_not_found!
 
       FractalItem(User).new user
     end

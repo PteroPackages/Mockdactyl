@@ -6,8 +6,9 @@ module Mockdactyl
     @attributes : T
     @meta : JSON::Any?
 
-    def initialize(@attributes, @meta = nil)
+    def initialize(@attributes, meta = nil)
       @object = attributes.key
+      @meta = JSON::Any.new meta if meta
     end
   end
 

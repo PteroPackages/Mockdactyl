@@ -41,7 +41,7 @@ module Mockdactyl::Application
 
       Store.users << user
 
-      user
+      FractalItem(User).new user
     end
 
     private def fail_not_found! : NoReturn

@@ -26,6 +26,10 @@ module Mockdactyl
     def key : String
       "user"
     end
+
+    def to_json : String
+      FractalItem.new(self).to_json
+    end
   end
 
   class UserCreate

@@ -1,3 +1,10 @@
+class Array(T)
+  def to_json
+    data = map { |i| Mockdactyl::FractalItem.new i }
+    Mockdactyl::FractalList(T).new(data).to_json
+  end
+end
+
 module Mockdactyl
   class FractalItem(T)
     include JSON::Serializable

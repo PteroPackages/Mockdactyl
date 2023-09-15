@@ -22,6 +22,28 @@ module Mockdactyl::Application
       FractalItem(User).new user
     end
 
+    @[ARTA::Post("")]
+    def create(
+      @[ATHR::RequestBody::Extract]
+      data : Mockdactyl::UserCreate
+    ) : Mockdactyl::FractalItem(Mockdactyl::User)
+      user = User.new(
+        Store.users.size,
+        data.external_id,
+        UUID.random.to_s,
+        data.username,
+        data.email,
+        data.first_name,
+        data.last_name,
+        data.language,
+        data.root_admin
+      )
+
+      Store.users << user
+
+      user
+    end
+
     private def fail_not_found! : NoReturn
       raise ATH::Exceptions::NotFound.new "the requested user was not found"
     end

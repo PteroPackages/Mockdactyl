@@ -1,5 +1,5 @@
 module Mockdactyl
-  class ApiKey
+  class APIKey
     include JSON::Serializable
 
     getter identifier : String

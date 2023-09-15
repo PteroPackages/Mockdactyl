@@ -16,7 +16,10 @@ dependencies:
     github: askn/faker
 
 scripts:
-  serve: geode build -p && bin/mockd
+  serve: |
+    set -e
+    geode build -p
+    bin/mockd
 
 targets:
   mockd:

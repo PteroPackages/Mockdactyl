@@ -15,7 +15,10 @@ dependencies:
   faker:
     github: askn/faker
 
+scripts:
+  serve: geode build -p && bin/mockd
+
 targets:
   mockd:
     main: src/main.cr
-    flags: --progress
+    flags: --stats

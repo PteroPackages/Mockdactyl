@@ -4,7 +4,7 @@ module Mockdactyl
     include AED::EventListenerInterface
 
     @[AEDA::AsEventListener]
-    def authenticate(event : Athena::Framework::Events::Request)
+    def authenticate(event : ATH::Events::Request)
       return unless event.request.path.starts_with? "/api"
 
       headers = event.request.headers

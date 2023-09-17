@@ -34,5 +34,10 @@ module Mockdactyl::Application
 
       Store.users.update user, data
     end
+
+    @[ARTA::Delete("/{id}")]
+    def delete(id : Int32) : Nil
+      Store.users.delete(id) || raise Exceptions::NotFound.new
+    end
   end
 end

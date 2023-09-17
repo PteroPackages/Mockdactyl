@@ -70,5 +70,12 @@ module Mockdactyl::Store
 
       user
     end
+
+    def delete(id : Int32) : Bool
+      pos = @data.index { |u| u.id == id } || return false
+      @data.delete_at pos
+
+      true
+    end
   end
 end

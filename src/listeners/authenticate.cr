@@ -1,4 +1,4 @@
-module Mockdactyl
+module Mockdactyl::Listeners
   @[ADI::Register]
   class Authenticate
     include AED::EventListenerInterface

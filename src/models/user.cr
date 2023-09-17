@@ -54,4 +54,27 @@ module Mockdactyl
     getter language : String = "en"
     getter root_admin : Bool = false
   end
+
+  class UserUpdate
+    include AVD::Validatable
+    include JSON::Serializable
+
+    @[Assert::Size(1...59)]
+    getter external_id : String?
+    @[Assert::NotBlank]
+    @[Assert::Size(1...59)]
+    getter username : String
+    @[Assert::Email]
+    @[Assert::NotBlank]
+    getter email : String
+    @[Assert::NotBlank]
+    @[Assert::Size(1...59)]
+    getter first_name : String
+    @[Assert::NotBlank]
+    @[Assert::Size(1...59)]
+    getter last_name : String
+    @[Assert::Size(0...4)]
+    getter language : String?
+    getter root_admin : Bool?
+  end
 end

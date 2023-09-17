@@ -23,5 +23,16 @@ module Mockdactyl::Application
     ) : Mockdactyl::User
       Store.users.create data
     end
+
+    @[ARTA::Patch("/{id}")]
+    def update(
+      id : Int32,
+      @[ATHR::RequestBody::Extract]
+      data : Mockdactyl::UserUpdate
+    ) : Mockdactyl::User
+      user = Store.users.index(id) || raise Exceptions::NotFound.new
+
+      Store.users.update user, data
+    end
   end
 end

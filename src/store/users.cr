@@ -52,5 +52,23 @@ module Mockdactyl::Store
 
       user
     end
+
+    def update(user : User, data : UserUpdate) : User
+      user.external_id = data.external_id
+      user.username = data.username
+      user.email = data.email
+      user.first_name = data.first_name
+      user.last_name = data.last_name
+
+      if value = data.language
+        user.language = value
+      end
+
+      if value = data.root_admin
+        user.root_admin = value
+      end
+
+      user
+    end
   end
 end

@@ -5,6 +5,7 @@ require "uuid"
 
 require "./commands/*"
 require "./controllers/application/*"
+require "./exceptions/*"
 require "./middleware/*"
 require "./models/*"
 require "./store/*"

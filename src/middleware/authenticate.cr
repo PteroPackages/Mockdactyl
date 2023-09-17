@@ -8,20 +8,16 @@ module Mockdactyl
       return unless event.request.path.starts_with? "/api"
 
       headers = event.request.headers
-      fail_unauthorized! unless headers.has_key? "Authorization"
+      raise Exceptions::Unauthorized.new unless headers.has_key? "Authorization"
 
       auth = headers["Authorization"]
-      fail_unauthorized! unless auth.starts_with? "Bearer "
+      raise Exceptions::Unauthorized.new unless auth.starts_with? "Bearer "
 
       _, token = auth.split ' '
-      fail_unauthorized! unless token.starts_with? "ptlc_"
+      raise Exceptions::Unauthorized.new unless token.starts_with? "ptlc_"
 
       token = token[5..]
-      Store.api_keys.index(token) || fail_unauthorized!
-    end
-
-    private def fail_unauthorized! : NoReturn
-      raise ATH::Exceptions::Unauthorized.new "you are not authorised to access this resource", "Basic"
+      Store.api_keys.index(token) || raise Exceptions::Unauthorized.new
     end
   end
 end

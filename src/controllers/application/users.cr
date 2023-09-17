@@ -8,12 +8,12 @@ module Mockdactyl::Application
 
     @[ARTA::Get("/{id}")]
     def index(id : Int32) : Mockdactyl::User
-      Store.users.index(id) || fail_not_found!
+      Store.users.index(id) || raise Exceptions::NotFound.new
     end
 
     @[ARTA::Get("/external/{id}")]
     def external(id : String) : Mockdactyl::User
-      Store.users.index(id) || fail_not_found!
+      Store.users.index(id) || raise Exceptions::NotFound.new
     end
 
     @[ARTA::Post("")]
@@ -22,10 +22,6 @@ module Mockdactyl::Application
       data : Mockdactyl::UserCreate
     ) : Mockdactyl::User
       Store.users.create data
-    end
-
-    private def fail_not_found! : NoReturn
-      raise ATH::Exceptions::NotFound.new "the requested user was not found"
     end
   end
 end

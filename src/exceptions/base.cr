@@ -1,6 +1,6 @@
 module Mockdactyl::Exceptions
   class Base < Exception
-    @status : Int32
+    getter status : Int32
     @issues : Array(Issue)
 
     def initialize(@status, @issues)

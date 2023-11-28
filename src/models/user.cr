@@ -52,6 +52,7 @@ module Mockdactyl
     getter last_name : String
     @[Assert::Size(0...4)]
     getter language : String = "en"
+    # ameba:disable Style/QueryBoolMethods
     getter root_admin : Bool = false
   end
 

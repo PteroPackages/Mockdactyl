@@ -5,7 +5,7 @@ module Mockdactyl::Store
     @random : Random
 
     def initialize
-      @inc = 2
+      @inc = 1
       @data = [Location.new(1, Faker::Address.country_code, Faker::Address.country)]
       @random = Random.new
     end
